@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #030609;
+  --color-panel: #080e14;
+  --color-panel-2: #0c1520;
+  --color-border: #1a2535;
+  --color-border-bright: #243347;
+  --color-neon-green: #00ff41;
+  --color-neon-dim: rgba(0, 255, 65, 0.08);
+  --color-neon-glow: rgba(0, 255, 65, 0.4);
+  --color-red-xray: #ef4444;
+  --color-blue-xray: #3b82f6;
+  --color-yellow-xray: #eab308;
+  --color-text-main: #c8d8e8;
+  --color-text-muted: #4a6078;
+  --color-text-dim: #2a3a4a;
+  --color-accent-cyan: #00d4ff;
+  --color-accent-orange: #ff6b2b;
+  
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-neon-green); }
+
+/* ─────────────────────────────────────────────────────
+   GLITCH ANIMATION (标题用)
+───────────────────────────────────────────────────── */
+@keyframes glitch-clip-1 {
+  0%   { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); transform: translate(-3px, 0); }
+  20%  { clip-path: polygon(0 50%, 100% 50%, 100% 54%, 0 54%); transform: translate(3px, 0); }
+  40%  { clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); transform: translate(-2px, 0); }
+  60%  { clip-path: polygon(0 20%, 100% 20%, 100% 22%, 0 22%); transform: translate(2px, 0); }
+  80%  { clip-path: polygon(0 90%, 100% 90%, 100% 95%, 0 95%); transform: translate(-1px, 0); }
+  100% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); transform: translate(-3px, 0); }
+}
+@keyframes glitch-clip-2 {
+  0%   { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); transform: translate(3px, 0); color: #00d4ff; }
+  25%  { clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%); transform: translate(-3px, 0); color: #ff006e; }
+  50%  { clip-path: polygon(0 40%, 100% 40%, 100% 42%, 0 42%); transform: translate(2px, 0); color: #00ff41; }
+  75%  { clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%); transform: translate(-2px, 0); color: #ff6b2b; }
+  100% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); transform: translate(3px, 0); color: #00d4ff; }
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+.glitch:hover::before {
+  opacity: 1;
+  animation: glitch-clip-1 0.35s steps(1, end) infinite;
+  color: #ff006e;
+}
+.glitch:hover::after {
+  opacity: 1;
+  animation: glitch-clip-2 0.35s steps(1, end) 0.1s infinite;
+}
+
+/* ─────────────────────────────────────────────────────
+   SCAN LINE ANIMATION (处理中覆盖层)
+───────────────────────────────────────────────────── */
+@keyframes scan-line {
+  0%   { top: -2px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.animate-scan {
+  position: absolute;
+  left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,65,0.9), transparent);
+  box-shadow: 0 0 20px rgba(0,255,65,1), 0 0 40px rgba(0,255,65,0.3);
+  animation: scan-line 1.8s linear infinite;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────
+   ZEBRA STRIPE PROGRESS BAR
+───────────────────────────────────────────────────── */
+@keyframes zebra-move {
+  from { background-position: 0 0; }
+  to   { background-position: 40px 0; }
+}
+.progress-zebra {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0,255,65,0.15) 0px,
+    rgba(0,255,65,0.15) 10px,
+    rgba(0,255,65,0.35) 10px,
+    rgba(0,255,65,0.35) 20px
+  );
+  animation: zebra-move 0.6s linear infinite;
+}
+
+/* ─────────────────────────────────────────────────────
+   X-RAY HIGHLIGHT SPANS
+───────────────────────────────────────────────────── */
+.xray-cliche {
+  background: rgba(239, 68, 68, 0.22);
+  border-bottom: 1.5px solid #ef4444;
+  border-radius: 2px;
+  cursor: help;
+  position: relative;
+  transition: background 0.2s;
+}
+.xray-cliche:hover { background: rgba(239, 68, 68, 0.4); }
+
+.xray-trans {
+  background: rgba(59, 130, 246, 0.22);
+  border-bottom: 1.5px solid #3b82f6;
+  border-radius: 2px;
+  cursor: help;
+  transition: background 0.2s;
+}
+.xray-trans:hover { background: rgba(59, 130, 246, 0.4); }
+
+.xray-struct {
+  background: rgba(234, 179, 8, 0.18);
+  border-bottom: 1.5px dashed #eab308;
+  border-radius: 2px;
+  cursor: help;
+  transition: background 0.2s;
+}
+.xray-struct:hover { background: rgba(234, 179, 8, 0.35); }
+
+/* ─────────────────────────────────────────────────────
+   DETOX EDITOR (contenteditable)
+───────────────────────────────────────────────────── */
+.detox-editor {
+  outline: none;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.detox-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-text-dim);
+  pointer-events: none;
+}
+.detox-editor:focus { outline: none; }
+
+/* ─────────────────────────────────────────────────────
+   TOGGLE SWITCH
+───────────────────────────────────────────────────── */
+.toggle-track {
+  width: 36px; height: 18px;
+  border-radius: 9px;
+  background: var(--color-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+.toggle-track.on { background: var(--color-neon-green); }
+.toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+}
+.toggle-track.on .toggle-thumb { transform: translateX(18px); }
+
+/* ─────────────────────────────────────────────────────
+   INTENSITY SLIDER
+───────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--color-neon-green);
+  box-shadow: 0 0 8px var(--color-neon-glow);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+/* ─────────────────────────────────────────────────────
+   TYPEWRITER CURSOR BLINK
+───────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 8px; height: 1em;
+  background: var(--color-neon-green);
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+  box-shadow: 0 0 6px var(--color-neon-glow);
+}
+
+/* ─────────────────────────────────────────────────────
+   NEON GLOW UTILITIES
+───────────────────────────────────────────────────── */
+.neon-text   { color: var(--color-neon-green); text-shadow: 0 0 8px var(--color-neon-glow); }
+.neon-border { border-color: var(--color-neon-green); box-shadow: 0 0 8px var(--color-neon-glow), inset 0 0 8px rgba(0,255,65,0.05); }
+
+/* ─────────────────────────────────────────────────────
+   GLASS PANEL
+───────────────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(8, 14, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+/* ─────────────────────────────────────────────────────
+   COUNTER BADGE
+───────────────────────────────────────────────────── */
+.counter-badge {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  min-width: 2rem;
+  text-align: center;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.counter-badge.danger { color: #ef4444; text-shadow: 0 0 8px rgba(239,68,68,0.6); }
+.counter-badge.warn   { color: #eab308; text-shadow: 0 0 6px rgba(234,179,8,0.5); }
+.counter-badge.safe   { color: var(--color-neon-green); text-shadow: 0 0 6px var(--color-neon-glow); }
+
+/* ─────────────────────────────────────────────────────
+   PIPELINE ARROW ANIMATION
+───────────────────────────────────────────────────── */
+@keyframes flow-right {
+  0%   { opacity: 0; transform: translateX(-6px); }
+  50%  { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(6px); }
+}
+.flow-arrow { animation: flow-right 1.2s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────────────
+   VECTOR SCOPE HEATMAP SEGMENTS
+───────────────────────────────────────────────────── */
+.vector-hot {
+  background: rgba(239, 68, 68, 0.82);
+  box-shadow: 0 0 6px rgba(239,68,68,0.6);
+}
+.vector-warm {
+  background: rgba(234, 179, 8, 0.7);
+  box-shadow: 0 0 4px rgba(234,179,8,0.4);
+}
+.vector-safe {
+  background: rgba(0, 255, 65, 0.5);
+  box-shadow: 0 0 4px rgba(0,255,65,0.3);
+}
+
+/* Dead zone warning block */
+.vector-dead-zone {
+  border-left: 2px solid rgba(239,68,68,0.6);
+  animation: dead-zone-pulse 2s ease-in-out infinite;
+}
+@keyframes dead-zone-pulse {
+  0%, 100% { border-left-color: rgba(239,68,68,0.4); }
+  50%       { border-left-color: rgba(239,68,68,0.9); }
+}
+
+/* ─────────────────────────────────────────────────────
+   ADVERSARIAL VARIANT CARDS
+───────────────────────────────────────────────────── */
+.variant-card {
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.variant-card:hover {
+  border-color: var(--color-border-bright);
+}
+.variant-winner {
+  border-color: var(--color-neon-green) !important;
+  background: var(--color-neon-dim);
+}
+
+/* ─────────────────────────────────────────────────────
+   ORANGE TOGGLE (GAN MODE)
+───────────────────────────────────────────────────── */
+.toggle-track.on.orange { background: var(--color-accent-orange); }
+
+/* ─────────────────────────────────────────────────────
+   DISCRIMINATOR SCORE BAR
+───────────────────────────────────────────────────── */
+.score-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.7s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ─────────────────────────────────────────────────────
+   TEMPORAL TRAIL TIMELINE
+───────────────────────────────────────────────────── */
+.trail-timeline-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-bright);
+  background: var(--color-panel);
+  flex-shrink: 0;
+}
+.trail-timeline-dot.active {
+  border-color: var(--color-neon-green);
+  background: var(--color-neon-green);
+}
+
