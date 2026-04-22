@@ -35,6 +35,8 @@ interface AppState {
   // ── API ──
   apiKey: string;
   setApiKey: (key: string) => void;
+  apiBaseUrl: string;
+  setApiBaseUrl: (url: string) => void;
   gptzeroKey: string;
   setGptzeroKey: (key: string) => void;
 
@@ -143,6 +145,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [isApiVaultCancelable, setIsApiVaultCancelable] = useState(false);
   // API
   const [apiKey, setApiKey] = useState<string>('');
+  const [apiBaseUrl, setApiBaseUrl] = useState<string>('');
   const [gptzeroKey, setGptzeroKey] = useState<string>('');
   // Fingerprints
   const [fingerprints, setFingerprints] = useState<AuthorFingerprint[]>([]);
@@ -230,6 +233,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setIsApiVaultOpen(true);
     }
 
+    const storedBaseUrl = localStorage.getItem('ghost_api_base_url');
+    if (storedBaseUrl) setApiBaseUrl(storedBaseUrl);
+
     const storedGPTZero = localStorage.getItem('ghost_gptzero_key');
     if (storedGPTZero) setGptzeroKey(storedGPTZero);
 
@@ -259,6 +265,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => { localStorage.setItem('ghost_language', language); }, [language]);
   useEffect(() => { localStorage.setItem('ghost_presets', JSON.stringify(presets)); }, [presets]);
   useEffect(() => { if (apiKey) localStorage.setItem('ghost_api_key', apiKey); }, [apiKey]);
+  useEffect(() => { localStorage.setItem('ghost_api_base_url', apiBaseUrl); }, [apiBaseUrl]);
   useEffect(() => { if (gptzeroKey) localStorage.setItem('ghost_gptzero_key', gptzeroKey); }, [gptzeroKey]);
   useEffect(() => { localStorage.setItem('ghost_intensity', String(mutationIntensity)); }, [mutationIntensity]);
 
@@ -288,6 +295,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       isApiVaultOpen, setIsApiVaultOpen,
       isApiVaultCancelable, setIsApiVaultCancelable,
       apiKey, setApiKey,
+      apiBaseUrl, setApiBaseUrl,
       gptzeroKey, setGptzeroKey,
       fingerprints, addFingerprint, activeFingerprintId, setActiveFingerprintId,
       isGanMode, setIsGanMode,

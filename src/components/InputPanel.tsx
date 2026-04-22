@@ -43,12 +43,17 @@ function VariantCard({
 
   if (variant.status === 'error') {
     return (
-      <div className="p-2.5 border border-[var(--color-border)] rounded-sm opacity-50">
+      <div className="p-2.5 border border-[var(--color-border)] rounded-sm opacity-50 flex flex-col gap-1.5">
         <div className="flex items-center gap-2">
           <span className="text-base">{style?.icon ?? '◆'}</span>
           <span className="text-[10px] text-[var(--color-text-muted)]">{variant.promptStyle}</span>
           <span className="text-[9px] text-[var(--color-red-xray)] ml-auto">ERR</span>
         </div>
+        {variant.error && (
+          <span className="text-[9px] text-[var(--color-red-xray)] mt-1 font-mono break-all line-clamp-2">
+            {variant.error}
+          </span>
+        )}
       </div>
     );
   }
@@ -112,7 +117,7 @@ export function InputPanel() {
     babelStepLabel, setBabelStepLabel,
     setActiveMutations,
     startProgress, stopProgress, setGlobalProgress,
-    apiKey, setIsApiVaultOpen, setIsApiVaultCancelable,
+    apiKey, apiBaseUrl, setIsApiVaultOpen, setIsApiVaultCancelable,
     // GAN
     isGanMode, setIsGanMode,
     isClusterRunning, setIsClusterRunning,
@@ -148,7 +153,7 @@ export function InputPanel() {
       if (autoChaos) {
         mutations = getRandomMutations(language);
         setActiveMutations(mutations);
-        result = await rewriteText(result, null, mutations, language, apiKey);
+        result = await rewriteText(result, null, mutations, language, apiKey, apiBaseUrl);
       } else {
         let activeLabels: string[] = [];
 
@@ -158,14 +163,14 @@ export function InputPanel() {
             setBabelStepLabel(`[${step}/${total}] ${label}`);
             setGlobalProgress(10 + (step / total) * 50);
           };
-          result = await runBabelProtocol(result, apiKey, onStep);
+          result = await runBabelProtocol(result, apiKey, apiBaseUrl, onStep);
           setBabelStepLabel('');
         }
 
         if (isScrambleActive && !abortRef.current) {
           activeLabels.push('[极端意识流] 碎片化重构');
           setBabelStepLabel('→ 意识流碎片化重构中...');
-          result = await runExtremeScramble(result, apiKey);
+          result = await runExtremeScramble(result, apiKey, apiBaseUrl);
           setBabelStepLabel('');
         }
 
@@ -231,6 +236,7 @@ export function InputPanel() {
       const results = await runAdversarialCluster(
         inputText,
         apiKey,
+        apiBaseUrl,
         (idx, style, status) => {
           setGenerationVariants(prev => {
             const next = [...prev];

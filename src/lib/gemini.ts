@@ -45,9 +45,10 @@ export async function rewriteText(
   fingerprint: AuthorFingerprint | null,
   mutations: string[],
   language: 'en' | 'zh',
-  apiKey: string
+  apiKey: string,
+  apiBaseUrl?: string
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey, baseUrl: apiBaseUrl || undefined });
 
   let systemInstruction = language === 'zh'
     ? `你是幽灵打字机（Ghost Typewriter），一个高级文本重写引擎，旨在通过应用动态突变来规避AI检测。\n\n你的任务是重写提供的文本。请务必使用中文输出。`
@@ -94,9 +95,10 @@ const BABEL_STEPS = [
 export async function runBabelProtocol(
   text: string,
   apiKey: string,
+  apiBaseUrl?: string,
   onStep?: BabelStepCallback
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey, baseUrl: apiBaseUrl || undefined });
 
   let current = text;
 
@@ -148,9 +150,10 @@ export async function runBabelProtocol(
 // ─────────────────────────────────────────────
 export async function runExtremeScramble(
   text: string,
-  apiKey: string
+  apiKey: string,
+  apiBaseUrl?: string
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey, baseUrl: apiBaseUrl || undefined });
 
   const systemInstruction = `你是一个极端意识流重构引擎。
 规则：
@@ -260,9 +263,10 @@ export type ClusterProgressCallback = (idx: number, style: string, status: 'runn
 export async function runAdversarialCluster(
   text: string,
   apiKey: string,
+  apiBaseUrl?: string,
   onProgress?: ClusterProgressCallback
 ): Promise<GenerationVariant[]> {
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey, baseUrl: apiBaseUrl || undefined });
 
   const tasks = ADVERSARIAL_PROMPT_STYLES.map(async (style, idx): Promise<GenerationVariant> => {
     onProgress?.(idx, style.label, 'running');
@@ -284,6 +288,9 @@ export async function runAdversarialCluster(
         status: 'done',
       };
     } catch (err: any) {
+      if (err.message === 'Invalid API Key') {
+        throw err;
+      }
       onProgress?.(idx, style.label, 'error');
       return {
         idx,

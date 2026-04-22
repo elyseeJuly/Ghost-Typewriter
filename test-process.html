@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script type="module">
+import { GoogleGenAI } from "./node_modules/@google/genai/dist/index.mjs";
+try {
+  new GoogleGenAI({apiKey: "123"});
+  console.log("Success");
+} catch(e) {
+  document.body.innerHTML = e.toString();
+}
+</script>
+</body>
+</html>

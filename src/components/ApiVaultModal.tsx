@@ -14,11 +14,13 @@ export function ApiVaultModal() {
     isApiVaultOpen, setIsApiVaultOpen,
     isApiVaultCancelable,
     apiKey, setApiKey,
+    apiBaseUrl, setApiBaseUrl,
     gptzeroKey, setGptzeroKey,
   } = useAppContext();
   const lang = t[language];
 
   const [draft, setDraft] = useState(apiKey);
+  const [baseDraft, setBaseDraft] = useState(apiBaseUrl);
   const [gptzDraft, setGptzDraft] = useState(gptzeroKey);
   const [showKey, setShowKey] = useState(false);
   const [showGtz, setShowGtz] = useState(false);
@@ -28,6 +30,7 @@ export function ApiVaultModal() {
   const handleSave = () => {
     if (!draft.trim()) return;
     setApiKey(draft.trim());
+    setApiBaseUrl(baseDraft.trim());
     if (gptzDraft.trim()) setGptzeroKey(gptzDraft.trim());
     setIsApiVaultOpen(false);
   };
@@ -72,6 +75,28 @@ export function ApiVaultModal() {
               >
                 {showKey ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               </button>
+            </div>
+          </div>
+
+          {/* Gemini Base URL */}
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Key className="w-3.5 h-3.5 text-[var(--color-accent-orange)]" />
+              <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
+                API Base URL (Proxy)
+              </label>
+              <span className="ml-auto text-[9px] bg-[var(--color-border)] text-[var(--color-text-dim)] px-1.5 py-0.5 rounded">OPTIONAL</span>
+            </div>
+            <p className="text-[9px] text-[var(--color-text-dim)] mb-2">如果您处于无法访问Google API的地区，请在此填入反向代理地址 (例如: https://api.proxy.com)</p>
+            <div className="relative">
+              <input
+                id="gemini-base-url-input"
+                type="text"
+                value={baseDraft}
+                onChange={e => setBaseDraft(e.target.value)}
+                placeholder="https://generativelanguage.googleapis.com"
+                className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-main)] text-xs font-mono px-3 py-2.5 focus:outline-none focus:border-[var(--color-accent-orange)] transition-colors placeholder:text-[var(--color-text-dim)]"
+              />
             </div>
           </div>
 
