@@ -22,12 +22,16 @@
 | # | 文档物理名称 | 类别前缀 | 创建/更新日期 | 描述与核心内容 | 本地文件绝对链接 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | `SPEC_20260521_DOCUMENT_INDEX.md` | `SPEC_` | 2026-05-21 | 本主注册表目录文档。项目文档唯一的全局事实索引。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/SPEC_20260521_DOCUMENT_INDEX.md) |
-| 2 | `EXEC_20260417_V9_0_PLAN.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本实施方案**。包含 5 路生成对抗网络（GAN）、Sentence-BERT 客户端向量示波器及时间伪造的技术实现决策。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_PLAN.md) |
-| 3 | `EXEC_20260417_V9_0_TASK.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本开发追踪清单**。记录所有前端组件和后端 API 的开发与测试状态。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_TASK.md) |
-| 4 | `EXEC_20260417_V9_0_WALKTHROUGH.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本完工汇报**。包括 GPGPU 粒子管线、判别器沙盒和时间戳伪造的最终交付校验和 GitHub 同步证明。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_WALKTHROUGH.md) |
-| 5 | `EXEC_20260521_DOC_RESTRUCTURING_PLAN.md` | `EXEC_` | 2026-05-21 | **文档规范化整理执行方案**。根据 Emberois 终极开发文档规范进行结构化重组的方案。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_PLAN.md) |
-| 6 | `EXEC_20260521_DOC_RESTRUCTURING_TASK.md` | `EXEC_` | 2026-05-21 | **文档规范化整理任务清单**。伴随重构操作的实时 TODO task 任务进度清单。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_TASK.md) |
-| 7 | `EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md` | `EXEC_` | 2026-05-21 | **文档规范化整理交付验证汇报**。包含重构完成后的 100% 结构验证与 GitHub 同步最终汇报。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md) |
+| 2 | `SPEC_20260414_HYBRID_DETOX_PRD_AND_WHITEPAPER.md` | `SPEC_` | 2026-04-14 | **Hybrid Detox 排毒版产品 PRD 与技术白皮书**。阐述物理层投毒、多重巴别塔翻译及光谱透析的人机协同架构。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/SPEC_20260414_HYBRID_DETOX_PRD_AND_WHITEPAPER.md) |
+| 3 | `EXEC_20260414_HYBRID_DETOX_PLAN.md` | `EXEC_` | 2026-04-14 | **Hybrid Detox 排毒版开发实施方案书**。包含双阶段流水线重构、injectors 随机错字及 xray 扫描的高亮设计决策。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260414_HYBRID_DETOX_PLAN.md) |
+| 4 | `EXEC_20260414_HYBRID_DETOX_TASK.md` | `EXEC_` | 2026-04-14 | **Hybrid Detox 排毒版任务进度清单**。真实记录库层、组件层及联调验证任务细节，已全部标为完成。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260414_HYBRID_DETOX_TASK.md) |
+| 5 | `EXEC_20260414_HYBRID_DETOX_WALKTHROUGH.md` | `EXEC_` | 2026-04-14 | **Hybrid Detox 排毒版交付验证汇报**。包含静态编译通过、Vite 服务 3000 端口启动记录及端到端联调报告。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260414_HYBRID_DETOX_WALKTHROUGH.md) |
+| 6 | `EXEC_20260417_V9_0_PLAN.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本实施方案**。包含 5 路生成对抗网络（GAN）、Sentence-BERT 客户端向量示波器及时间伪造的技术实现决策。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_PLAN.md) |
+| 7 | `EXEC_20260417_V9_0_TASK.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本开发追踪清单**。记录所有前端组件和后端 API 的开发与测试状态。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_TASK.md) |
+| 8 | `EXEC_20260417_V9_0_WALKTHROUGH.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本完工汇报**。包括 GPGPU 粒子管线、判别器沙盒和时间戳伪造的最终交付校验和 GitHub 同步证明。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_WALKTHROUGH.md) |
+| 9 | `EXEC_20260521_DOC_RESTRUCTURING_PLAN.md` | `EXEC_` | 2026-05-21 | **文档规范化整理执行方案**。根据 Emberois 终极开发文档规范进行结构化重组的方案。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_PLAN.md) |
+| 10 | `EXEC_20260521_DOC_RESTRUCTURING_TASK.md` | `EXEC_` | 2026-05-21 | **文档规范化整理任务清单**。伴随重构操作的实时 TODO task 任务进度清单。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_TASK.md) |
+| 11 | `EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md` | `EXEC_` | 2026-05-21 | **文档规范化整理交付验证汇报**。包含重构完成后的 100% 结构验证与 GitHub 同步最终汇报。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md) |
 
 ---
 
