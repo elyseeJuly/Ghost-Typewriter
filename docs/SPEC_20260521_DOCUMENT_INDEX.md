@@ -1,7 +1,7 @@
 # 幽灵打字机 (Ghost Typewriter) — 开发文档主注册表目录 (Document Index)
 > **项目版本**: V9.0-ADVERSARIAL-GAN  
-> **生效日期**: 2026-05-21  
-> **管理规范**: [SPEC_20260520_GLOBAL_DEVELOPMENT_STANDARDS.md](file:///Users/quantumrose/Documents/Emberois/SPEC_20260520_GLOBAL_DEVELOPMENT_STANDARDS.md)
+> **生效日期**: 2026-06-11  
+> **管理规范**: [SPEC_20260520_GLOBAL_DEVELOPMENT_STANDARDS.md](file:///Users/quantumrose/Documents/Emberois/emberois-dev-standards/specifications/SPEC_20260520_GLOBAL_DEVELOPMENT_STANDARDS.md)
 
 ---
 
@@ -31,7 +31,10 @@
 | 8 | `EXEC_20260417_V9_0_WALKTHROUGH.md` | `EXEC_` | 2026-04-17 | **v9.0 对抗生成版本完工汇报**。包括 GPGPU 粒子管线、判别器沙盒和时间戳伪造的最终交付校验和 GitHub 同步证明。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260417_V9_0_WALKTHROUGH.md) |
 | 9 | `EXEC_20260521_DOC_RESTRUCTURING_PLAN.md` | `EXEC_` | 2026-05-21 | **文档规范化整理执行方案**。根据 Emberois 终极开发文档规范进行结构化重组的方案。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_PLAN.md) |
 | 10 | `EXEC_20260521_DOC_RESTRUCTURING_TASK.md` | `EXEC_` | 2026-05-21 | **文档规范化整理任务清单**。伴随重构操作的实时 TODO task 任务进度清单。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_TASK.md) |
-| 11 | `EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md` | `EXEC_` | 2026-05-21 | **文档规范化整理交付验证汇报**。包含重构完成后的 100% 结构验证与 GitHub 同步最终汇报。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md) |
+| 11 | `EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md` | `EXEC_` | 2026-05-21 | 文档规范化整理交付验证汇报。包含重构完成后的 100% 结构验证与 GitHub 同步最终汇报。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/EXEC_20260521_DOC_RESTRUCTURING_WALKTHROUGH.md) |
+| 12 | `AUDIT_20260611_GHOST_TYPEWRITER_ANTI_DETECTION_AUDIT.md` | `AUDIT_` | 2026-06-11 | **现存反检测机制技术审计报告**。深度剖析内置8大防检测方法的失效原因，对标 stop-slop 给出 V10 演进建议。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/AUDIT_20260611_GHOST_TYPEWRITER_ANTI_DETECTION_AUDIT.md) |
+| 13 | `SPEC_20260611_STOP_SLOP_INTEGRATION_AND_ANTI_DETECTION_UPGRADE.md` | `SPEC_` | 2026-06-11 | **stop-slop 深度集成与反 AI 检测升级技术规格书**。阐述 stop-slop 的融入设计、五色透析高亮及 V10.0 重构规划。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/SPEC_20260611_STOP_SLOP_INTEGRATION_AND_ANTI_DETECTION_UPGRADE.md) |
+| 14 | `AUDIT_20260611_STOP_SLOP_FEASIBILITY_AND_UPGRADE_REPORT.md` | `AUDIT_` | 2026-06-11 | **stop-slop 深度集成与反 AI 检测率提升技术分析报告**。结合 stop-slop 分析可行性、融合方案及反 AI 检测率提升系统性策略。 | [查看文档](file:///Users/quantumrose/Documents/Emberois/ghost-typewriter/docs/AUDIT_20260611_STOP_SLOP_FEASIBILITY_AND_UPGRADE_REPORT.md) |
 
 ---
 
