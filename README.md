@@ -1,5 +1,4 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
 # Ghost Typewriter v9.0
 ### Adversarial GAN Edition — An AI Writing Detoxification Platform
@@ -94,7 +93,7 @@ A floating **Ghost Profiler** chatbot assists with fingerprint extraction and dr
 - **Winner selection**: Lowest AI score wins; automatically recorded to a local strategy archive (last 50 winners persisted in `localStorage`).
 
 ### Stage 1 — Mutation Matrix
-- **Protocol Babel** — 4-step chain translation: ZH → DE → JA → ZH → final polish. Each step is a separate Gemini API call with live progress indicators.
+- **Protocol Babel** — 4-step chain translation: ZH → DE → JA → ZH → final polish. Each step is a separate LLM API call with live progress indicators.
 - **Extreme Scramble** — Stream-of-consciousness rewrite that bans logical conjunctions and forces short, fragmented sentences.
 - **Typo Injector** — Bilingual homophone substitution (的↔地↔得, therefore→therefor, etc.) with configurable intensity.
 - **Punctuation Chaos** — Randomizes sentence-ending punctuation (`。` → `……`/`！`/`。。`, `.` → `...`/`!`) and commas to break Burstiness calculations.
@@ -112,10 +111,10 @@ A floating **Ghost Profiler** chatbot assists with fingerprint extraction and dr
 
 ### Cross-Cutting
 - **Author Fingerprint Cloning** — Extract writing style (vocabulary, sentence structure, tone, formatting) from past writing via the Ghost Profiler chatbot or manual entry, then inject it into rewrite instructions.
-- **Ghost Profiler Chatbot** — A floating, terminal-styled assistant using Gemini in JSON mode. Two quick commands: **Extract Fingerprint** and **Scan Draft**. Returns structured JSON (`fingerprint` / `prescan` / `error`).
+- **Ghost Profiler Chatbot** — A floating, terminal-styled assistant using LLM JSON mode. Two quick commands: **Extract Fingerprint** and **Scan Draft**. Returns structured JSON (`fingerprint` / `prescan` / `error`).
 - **Bilingual UI** — Full English / Chinese toggle with persisted preference.
 - **Preset Manager** — Save/load/delete intensity + fingerprint combinations.
-- **API Vault** — Local-only credential storage. Supports a reverse-proxy base URL for regions where Google APIs are blocked. Optional GPTZero key for real detection scoring.
+- **API Vault** — Local-only credential storage. Supports a custom API Base URL for reverse-proxy or compatible API endpoints. Optional GPTZero key for real detection scoring.
 - **Cyberpunk UI** — Typewriter animations, scan-line overlays, glowing neon borders, glassmorphism panels.
 
 ---
@@ -127,18 +126,14 @@ A floating **Ghost Profiler** chatbot assists with fingerprint extraction and dr
 | Framework | React 19 + TypeScript 5.8 |
 | Bundler | Vite 6 (dev server on port 3000) |
 | Styling | Tailwind CSS v4 + custom CSS variables (neon/cyberpunk theme) |
-| AI / LLM | `@google/genai` — Gemini 2.5 Flash Preview |
+| AI / LLM | `@google/genai` SDK (supports custom base URL for compatible API endpoints) |
 | On-device ML | `@xenova/transformers` — `all-MiniLM-L6-v2` (WASM, browser cache) |
 | Icons | `lucide-react` |
 | Animation | `motion` (Framer Motion) |
 | State | React Context + `localStorage` persistence (no Redux/Zustand) |
 | Detection API | GPTZero v2 (optional) |
 
-**Gemini models in use:**
-- `gemini-2.5-flash-preview-04-17` — for text mutations and GAN cluster
-- `gemini-2.5-flash-preview-09-2025` — for the Ghost Profiler chatbot
-
-All processing is client-side except Gemini and optional GPTZero API calls. No backend server is required.
+The LLM integration uses the `@google/genai` SDK with a configurable API Base URL, allowing it to connect to any compatible API endpoint (direct or reverse-proxy). All processing is client-side except LLM and optional GPTZero API calls. No backend server is required.
 
 ---
 
@@ -147,7 +142,7 @@ All processing is client-side except Gemini and optional GPTZero API calls. No b
 ### Prerequisites
 
 - **Node.js** v18+
-- **Gemini API Key** — obtain from [Google AI Studio](https://aistudio.google.com/)
+- **LLM API Key** — obtain from your API provider
 - **GPTZero API Key** (optional) — for real detection scoring
 
 ### Installation & Running
@@ -159,8 +154,8 @@ All processing is client-side except Gemini and optional GPTZero API calls. No b
 
 2. Configure your API keys:
    - Launch the app and the **API Vault** modal will appear on first run (non-cancelable until a key is provided).
-   - Enter your Gemini API Key (required).
-   - Optionally set an API Base URL (reverse proxy) if Google APIs are blocked in your region.
+   - Enter your LLM API Key (required).
+   - Optionally set an API Base URL to point to a compatible endpoint or reverse proxy.
    - Optionally enter a GPTZero API Key for real detection scoring.
 
    Alternatively, create a `.env.local`:
@@ -201,7 +196,7 @@ ghost-typewriter/
 │   │   └── VectorScopePanel.tsx    # Semantic heatmap UI
 │   ├── lib/
 │   │   ├── discriminator.ts        # AI scoring (GPTZero + heuristic)
-│   │   ├── gemini.ts               # Gemini API calls + retry logic
+│   │   ├── gemini.ts               # LLM API calls + retry logic
 │   │   ├── i18n.ts                 # Bilingual string table
 │   │   ├── injectors.ts            # Typo/punctuation/stream injection
 │   │   ├── mutations.ts            # Mutation directive library
@@ -245,8 +240,8 @@ All state is persisted to `localStorage`:
 
 | Key | Purpose |
 |-----|---------|
-| `ghost_api_key` | Gemini API key |
-| `ghost_api_base_url` | Reverse proxy URL |
+| `ghost_api_key` | LLM API key |
+| `ghost_api_base_url` | Custom API base URL / reverse proxy |
 | `ghost_gptzero_key` | GPTZero API key |
 | `ghost_fingerprints` | Author fingerprint list |
 | `ghost_language` | UI language preference |
@@ -331,7 +326,7 @@ Stage 2：解毒编辑器
 - **优胜选择**：AI 率最低者获胜，自动记录到本地策略档案（最近 50 条保存在 `localStorage`）。
 
 ### Stage 1 — 变异矩阵
-- **巴别塔协议** — 4 步链式翻译：中→德→日→中→最终润色。每步独立 Gemini API 调用，带实时进度指示。
+- **巴别塔协议** — 4 步链式翻译：中→德→日→中→最终润色。每步独立 LLM API 调用，带实时进度指示。
 - **极限扰乱** — 意识流重写，禁止逻辑连接词，强制短句碎片化。
 - **错别字注入** — 双语同音字替换（的↔地↔得, therefore→therefor 等），强度可调。
 - **标点混乱** — 随机化句尾标点（`。` → `……`/`！`/`。。`）和逗号，破坏 Burstiness 计算。
@@ -349,10 +344,10 @@ Stage 2：解毒编辑器
 
 ### 横切功能
 - **作者指纹克隆** — 通过幽灵画像师聊天机器人或手动输入，从过往写作中提取风格（词汇、句法、语气、格式），注入重写指令。
-- **幽灵画像师聊天机器人** — 浮动终端风格助手，使用 Gemini JSON 模式。两个快捷命令：**提取指纹** 和 **扫描草稿**。返回结构化 JSON（`fingerprint` / `prescan` / `error`）。
+- **幽灵画像师聊天机器人** — 浮动终端风格助手，使用 LLM JSON 模式。两个快捷命令：**提取指纹** 和 **扫描草稿**。返回结构化 JSON（`fingerprint` / `prescan` / `error`）。
 - **双语 UI** — 完整中英文切换，偏好持久化。
 - **预设管理器** — 保存/加载/删除强度+指纹组合。
-- **API 保险库** — 仅本地存储凭证。支持反向代理 Base URL（适用于 Google API 被屏蔽的地区）。可选 GPTZero Key 用于真实检测评分。
+- **API 保险库** — 仅本地存储凭证。支持自定义 API Base URL，可接入兼容的 API 端点或反向代理。可选 GPTZero Key 用于真实检测评分。
 - **赛博朋克 UI** — 打字机动画、扫描线叠加、霓虹发光边框、毛玻璃面板。
 
 ---
@@ -364,18 +359,14 @@ Stage 2：解毒编辑器
 | 框架 | React 19 + TypeScript 5.8 |
 | 构建工具 | Vite 6（开发服务器端口 3000）|
 | 样式 | Tailwind CSS v4 + 自定义 CSS 变量（霓虹/赛博朋克主题）|
-| AI / LLM | `@google/genai` — Gemini 2.5 Flash Preview |
+| AI / LLM | `@google/genai` SDK（支持自定义 Base URL，可接入兼容的 API 端点）|
 | 端侧 ML | `@xenova/transformers` — `all-MiniLM-L6-v2`（WASM，浏览器缓存）|
 | 图标 | `lucide-react` |
 | 动画 | `motion`（Framer Motion）|
 | 状态管理 | React Context + `localStorage` 持久化（无 Redux/Zustand）|
 | 检测 API | GPTZero v2（可选）|
 
-**使用的 Gemini 模型：**
-- `gemini-2.5-flash-preview-04-17` — 文本变异和 GAN 集群
-- `gemini-2.5-flash-preview-09-2025` — 幽灵画像师聊天机器人
-
-除 Gemini 和可选的 GPTZero API 调用外，所有处理均在客户端完成，无需后端服务器。
+LLM 集成使用 `@google/genai` SDK，支持配置自定义 API Base URL，可连接任意兼容的 API 端点（直连或反向代理）。除 LLM 和可选的 GPTZero API 调用外，所有处理均在客户端完成，无需后端服务器。
 
 ---
 
@@ -383,7 +374,7 @@ Stage 2：解毒编辑器
 
 ### 准备工作
 - **Node.js** v18+
-- **Gemini API Key** — 从 [Google AI Studio](https://aistudio.google.com/) 获取
+- **LLM API Key** — 从你的 API 提供商获取
 - **GPTZero API Key**（可选）— 用于更高精度的真实判别
 
 ### 安装与运行
@@ -395,8 +386,8 @@ Stage 2：解毒编辑器
 
 2. 配置 API 密钥：
    - 启动应用后，**API 保险库**弹窗会在首次运行时出现（未输入 Key 前不可关闭）。
-   - 输入 Gemini API Key（必填）。
-   - 如需反向代理，可设置 API Base URL。
+   - 输入 LLM API Key（必填）。
+   - 可设置 API Base URL，指向兼容的 API 端点或反向代理。
    - 可选输入 GPTZero API Key 以启用真实检测评分。
 
    也可以创建 `.env.local`：
