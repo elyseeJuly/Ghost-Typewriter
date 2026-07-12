@@ -7,8 +7,19 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Version: 9.0](https://img.shields.io/badge/Version-9.0_GAN-cyan.svg)](#)
 [![Tech: React 19](https://img.shields.io/badge/Tech-React_19-61dafb.svg)](#)
+[![Status: Archived](https://img.shields.io/badge/Status-Archived-red.svg)](#)
 
 </div>
+
+---
+
+## ⚠️ 项目已归档
+
+**本仓库为实验级作品，现已归档，仅供学习参考。**
+
+在技术实现层面，本项目与最初的理想设计存在巨大差距。经过评估，我们认为当前架构无法达到预期的设计目标，因此选择将仓库归档，保留完整的开发过程与代码作为技术探索的记录。
+
+如果你对本项目的思路感兴趣，欢迎 Fork 并在此基础上进行自己的探索与实践。
 
 ---
 
